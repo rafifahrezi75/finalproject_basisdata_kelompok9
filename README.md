@@ -22,7 +22,7 @@ Sistem informasi ini dirancang untuk mengelola proses penyewaan alat-alat campin
 
 ## 👥 Biodata Kelompok 9
 
-| Nama Lengkap                | NIM           |
+| Nama Lengkap                | NPM           |
 |-----------------------------|---------------|
 | Muhammad Rafi Fahrezi       | 24082010099   |
 | Nanda Risky Firmandany      | 24082010098   |
@@ -275,7 +275,7 @@ Pastikan Anda berada di direktori project, lalu jalankan perintah berikut:
 javac -d bin -cp "lib/mysql-connector-j-9.3.0.jar" -sourcepath . \
   user/*.java connection/*.java kategori/*.java alat/*.java \
   penyewaan/*.java detail_penyewaan/*.java tagihan_penyewaan/*.java \
-  pengembalian/*.java Main.java
+  pengembalian/*.java report/*.java Main.java
 ```
 
 ### ▶️ Step 2: Jalankan Program
