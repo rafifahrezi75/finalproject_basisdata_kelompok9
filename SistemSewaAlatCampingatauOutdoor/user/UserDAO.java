@@ -73,15 +73,32 @@ public class UserDAO {
 
   // Delete User
   public void deleteUser(int idUser) {
-    String sql = "DELETE FROM user WHERE id_user = ?";
+    String checkSql = "SELECT COUNT(*) FROM penyewaan WHERE id_user = ?";
+    String deleteSql = "DELETE FROM user WHERE id_user = ?";
+
     try (Connection conn = DBConnection.getConnection();
-      PreparedStatement stmt = conn.prepareStatement(sql)) {
-      stmt.setInt(1, idUser);
-      stmt.executeUpdate();
-      System.out.println("User berhasil dihapus.\n");
+          PreparedStatement checkStmt = conn.prepareStatement(checkSql)) {
+
+        checkStmt.setInt(1, idUser);
+        ResultSet rs = checkStmt.executeQuery();
+        if (rs.next() && rs.getInt(1) > 0) {
+            System.out.println("User tidak dapat dihapus karena memiliki data penyewaan.");
+            return;
+        }
+
+        try (PreparedStatement deleteStmt = conn.prepareStatement(deleteSql)) {
+            deleteStmt.setInt(1, idUser);
+            int affectedRows = deleteStmt.executeUpdate();
+            if (affectedRows > 0) {
+                System.out.println("User berhasil dihapus.");
+            } else {
+                System.out.println("User tidak ditemukan.");
+            }
+        }
+
     } catch (SQLException e) {
-      System.out.println("Gagal menghapus user.\n");
-      e.printStackTrace();
+        System.out.println("Gagal menghapus user.\n");
+        e.printStackTrace();
     }
   }
 
